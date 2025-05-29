@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Produtos - Essentia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-escuro: #0a2236;
+      --laranja: #ff7d1a;
+      --cinza-bg: #f7f8f4;
+      --cinza-card: #f5f6fa;
+      --cinza-busca: #f8f9fb;
+      --cinza-img: #dde2e6;
+      --cinza-txt: #b1b5bb;
+      --branco: #fff;
+      --sombra: 0 8px 32px rgba(10,34,54,0.10);
+      --sombra-suave: 0 4px 16px rgba(10,34,54,0.07);
+      --radius: 16px;
+      --radius-grande: 18px;
+    }
+    body {
+      margin: 0;
+      font-family: 'Mulish', Arial, sans-serif;
+      background: var(--cinza-bg);
+      color: var(--azul-escuro);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: var(--azul-escuro);
+      color: var(--branco);
+      padding: 0;
+      box-shadow: 0 2px 16px rgba(10,34,54,0.08);
+    }
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: -1px;
+      margin-right: 20px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+    .nav-links a {
+      color: var(--branco);
+      text-decoration: none;
+      font-size: 1.08rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+      padding: 4px 0;
+    }
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: var(--laranja);
+    }
+    .nav-profile {
+      color: var(--branco);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-profile:hover {
+      color: var(--laranja);
+    }
+    main {
+      flex: 1 0 auto;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 48px 0 100px 0;
+      box-sizing: border-box;
+    }
+    .busca-area {
+      display: flex;
+      align-items: flex-end;
+      gap: 18px;
+      flex-wrap: wrap;
+      width: 80%;
+      margin: 0 auto 36px auto;
+      background: var(--cinza-busca);
+      border-radius: var(--radius-grande);
+      box-shadow: var(--sombra-suave);
+      padding: 24px 32px 18px 32px;
+      min-width: 320px;
+      max-width: 900px;
+    }
+    .busca-area input[type="text"] {
+      flex: 2 1 220px;
+      padding: 14px 18px;
+      border: 1.5px solid var(--laranja);
+      border-radius: var(--radius);
+      font-size: 1.07rem;
+      background: var(--branco);
+      color: var(--laranja);
+      box-shadow: 0 2px 8px rgba(10,34,54,0.04);
+      outline: none;
+      transition: box-shadow 0.2s;
+      margin-bottom: 0;
+    }
+    .busca-area input[type="text"]:focus {
+      box-shadow: 0 2px 12px rgba(255,125,26,0.13);
+    }
+    .busca-area .filtro-grupo {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 120px;
+      flex: 1 1 120px;
+    }
+    .busca-area label {
+      font-size: 1rem;
+      color: var(--azul-escuro);
+      font-weight: 600;
+      margin-bottom: 2px;
+      margin-left: 2px;
+    }
+    .busca-area select {
+      padding: 10px 14px;
+      border-radius: 18px;
+      border: 1.5px solid #dde2e6;
+      font-size: 1rem;
+      background: #fff;
+      color: #222;
+      transition: border 0.2s, color 0.2s;
+      outline: none;
+      appearance: none;
+      box-shadow: none;
+    }
+    .busca-area select:focus {
+      border: 1.5px solid var(--laranja);
+      color: var(--laranja);
+    }
+    .busca-area select option {
+      color: #222;
+      background: #fff;
+      border-radius: 18px;
+    }
+    /* Efeito hover nas opções do select (apenas para custom select, mas para efeito visual no select) */
+    .busca-area select:hover,
+    .busca-area select:active {
+      color: var(--laranja);
+      border-color: var(--laranja);
+    }
+    /* Remove cor de fundo azul padrão do select em hover/focus */
+    .busca-area select::-ms-expand {
+      display: none;
+    }
+    .busca-area .filtro-btn {
+      background: linear-gradient(90deg, var(--laranja) 60%, #ffb866 100%);
+      color: var(--branco);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 32px;
+      font-size: 1.07rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(255,125,26,0.09);
+      margin-left: 8px;
+      margin-top: 18px;
+      height: 44px;
+      flex: 0 0 auto;
+    }
+    .busca-area .filtro-btn:hover {
+      background: linear-gradient(90deg, #e66a12 60%, #ffb866 100%);
+    }
+    .produtos-titulo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin-bottom: 22px;
+      margin-left: 11%;
+      letter-spacing: -0.5px;
+    }
+    .produtos-lista-bg {
+      background: var(--branco);
+      border-radius: 22px;
+      box-shadow: var(--sombra);
+      padding: 38px 28px 32px 28px;
+      margin: 0 auto;
+      width: 78%;
+      min-width: 320px;
+      max-width: 1100px;
+      display: flex;
+      justify-content: center;
+    }
+    .produtos-lista {
+      display: flex;
+      gap: 38px;
+      width: 100%;
+      justify-content: center;
+    }
+    .produto-card {
+      background: var(--cinza-card);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(10,34,54,0.04);
+      padding: 24px 20px 24px 20px; /* topo e fundo iguais */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 240px;
+      min-width: 160px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .produto-card:hover {
+      box-shadow: 0 8px 32px rgba(255,125,26,0.13);
+      transform: translateY(-4px) scale(1.025);
+    }
+    .produto-card .saber-mais-btn {
+      background: linear-gradient(90deg, var(--laranja) 60%, #ffb866 100%);
+      color: var(--branco);
+      border: none;
+      border-radius: 10px;
+      padding: 13px 0;
+      width: 100%;
+      font-size: 1.08rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 18px; /* igual ao margin-bottom da imagem */
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 8px rgba(255,125,26,0.09);
+      letter-spacing: 0.01em;
+    }
+    .produto-card .saber-mais-btn:hover {
+      background: linear-gradient(90deg, #e66a12 60%, #ffb866 100%);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .produto-img {
+      width: 120px;
+      height: 120px;
+      background: var(--cinza-img);
+      border-radius: 10px;
+      margin-bottom: 18px;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cinza-txt);
+      font-size: 1.02rem;
+      font-weight: 500;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .produto-img img {
+      width: 120px !important;
+      height: 120px !important;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(10,34,54,0.08);
+      background: var(--cinza-img);
+      display: block;
+    }
+    .produto-titulo {
+      font-size: 1.09rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin-top: 4px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    footer {
+      background: var(--azul-escuro);
+      color: var(--branco);
+      text-align: center;
+      padding: 20px 0 14px 0;
+      font-size: 1rem;
+      position: fixed;
+      width: 100vw;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      box-shadow: 0 -2px 8px rgba(10,34,54,0.09);
+      letter-spacing: 0.02em;
+    }
+    .filtros-area {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+      margin: 0 auto 28px auto;
+      width: 80%;
+      max-width: 900px;
+      background: var(--cinza-busca);
+      border-radius: var(--radius-grande);
+      box-shadow: var(--sombra-suave);
+      padding: 18px 32px 14px 32px;
+    }
+    .filtro-grupo {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 120px;
+    }
+    .filtros-area label {
+      font-size: 1rem;
+      color: var(--azul-escuro);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .filtros-area select {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #dde2e6;
+      font-size: 1rem;
+      background: #fff;
+      color: #222;
+      transition: border 0.2s;
+    }
+    .filtros-area select:focus {
+      border: 1.5px solid #ff7d1a;
+      outline: none;
+    }
+    .filtro-btn {
+      background: linear-gradient(90deg, var(--laranja) 60%, #ffb866 100%);
+      color: var(--branco);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 32px;
+      font-size: 1.07rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(255,125,26,0.09);
+      margin-left: 16px;
+      margin-top: 18px;
+      height: 44px;
+    }
+    .filtro-btn:hover {
+      background: linear-gradient(90deg, #e66a12 60%, #ffb866 100%);
+    }
+    .custom-select {
+      position: relative;
+      width: 170px;
+      user-select: none;
+    }
+    .custom-select-trigger {
+      display: block;
+      padding: 10px 14px;
+      border: 1.5px solid #ff7d1a;
+      border-radius: 18px;
+      background: #fff;
+      color: #ff7d1a;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+    .custom-options {
+      display: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(10,34,54,0.09);
+      z-index: 10;
+      padding: 6px 0;
+    }
+    .custom-select.open .custom-options {
+      display: block;
+    }
+    .custom-option {
+      display: block;
+      padding: 10px 18px;
+      border-radius: 18px;
+      color: #222;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+    .custom-option:hover,
+    .custom-option.active {
+      color: #ff7d1a;
+      background: transparent;
+    }
+    .custom-option.selected {
+      font-weight: bold;
+      color: #ff7d1a;
+    }
+    @media (max-width: 1100px) {
+      .nav-bar {
+        padding: 0 18px;
+      }
+      .busca-area, .produtos-lista-bg {
+        width: 95%;
+        min-width: unset;
+        max-width: unset;
+      }
+      .produtos-titulo {
+        margin-left: 2%;
+      }
+    }
+    @media (max-width: 900px) {
+      main {
+        padding: 24px 0 100px 0;
+      }
+      .produtos-lista {
+        gap: 18px;
+      }
+      .produto-card {
+        width: 180px;
+        padding: 12px 6px 12px 6px;
+      }
+      .busca-area {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 18px 8px 14px 8px;
+        width: 98%;
+      }
+      .busca-area .filtro-btn {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 8px;
+      }
+    }
+    @media (max-width: 700px) {
+      .nav-bar {
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+      }
+      .busca-area {
+        flex-direction: column;
+        gap: 10px;
+        padding: 18px 8px 14px 8px;
+      }
+      .produtos-lista-bg {
+        padding: 10px 2px 10px 2px;
+        border-radius: 12px;
+      }
+      .produtos-lista {
+        flex-direction: column;
+        gap: 14px;
+        align-items: center;
+      }
+      .produto-card {
+        width: 95vw;
+        max-width: 340px;
+      }
+      .filtros-area {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 8px 10px 8px;
+        width: 98%;
+      }
+      .filtro-btn {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="nav-left">
+        <div class="logo">Essentia</div>
+        <div class="nav-links">
+          <a href="#">Sobre Nós</a>
+          <a href="#" class="active">Produtos</a>
+        </div>
+      </div>
+      <div class="nav-profile">Perfil</div>
+    </div>
+  </header>
+  <main>
+    <form class="busca-area" style="flex-wrap: wrap; gap: 18px;">
+        <input
+          type="text"
+          id="pesquisa-input"
+          placeholder="Pesquisar produtos..."
+          class="input-pesquisa"
+          style="flex: 2 1 220px;"
+          oninput="filtrarProdutos()"
+        >
+      </div>
+      <div class="filtro-grupo">
+        <label>Cor</label>
+        <div class="custom-select" tabindex="0" id="cor-select">
+          <span class="custom-select-trigger" id="cor-trigger">Todas</span>
+          <div class="custom-options" id="cor-options">
+            <span class="custom-option selected" data-value="">Todas</span>
+            <span class="custom-option" data-value="amadeirado">Amadeirado</span>
+            <span class="custom-option" data-value="cítrico">Cítrico</span>
+            <span class="custom-option" data-value="floral">Floral</span>
+            <span class="custom-option" data-value="oriental">Oriental</span>
+            <span class="custom-option" data-value="fresco">Fresco</span>
+          </div>
+        </div>
+      </div>
+      <div class="filtro-grupo">
+        <label>Temperatura</label>
+        <div class="custom-select" tabindex="0" id="temp-select">
+          <span class="custom-select-trigger" id="temp-trigger">Todas</span>
+          <div class="custom-options" id="temp-options">
+            <span class="custom-option selected" data-value="">Todas</span>
+            <span class="custom-option" data-value="quente">Quente</span>
+            <span class="custom-option" data-value="moderado">Moderado</span>
+            <span class="custom-option" data-value="frio">Frio</span>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="filtro-btn" onclick="filtrarProdutos()">Filtrar</button>
+    </form>
+    <div class="produtos-titulo">Lista de produtos</div>
+    <div class="produtos-lista-bg">
+      <div class="produtos-lista">
+        <div class="produto-card" data-cor="amadeirado" data-temp="quente">
+          <div class="produto-img">
+            <img src="img/SWY.avif" alt="Stronger With You: Intensly">
+          </div>
+          <div class="produto-titulo">Stronger With You: Intensly</div>
+          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€69,99</div>
+          <button class="saber-mais-btn">Saber mais</button>
+        </div>
+        <div class="produto-card" data-cor="oriental" data-temp="moderado">
+          <div class="produto-img">
+            <img src="img/JPGM.webp" alt="Jean Paul Gaultier Le Male">
+          </div>
+          <div class="produto-titulo">Jean Paul Gaultier Le Male</div>
+          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€59,99</div>
+          <button class="saber-mais-btn">Saber mais</button>
+        </div>
+        <div class="produto-card" data-cor="cítrico" data-temp="fresco">
+          <div class="produto-img">
+            <img src="img/LVI.jpg" alt="Louis Vuitton Imagination">
+          </div>
+          <div class="produto-titulo">Louis Vuitton Imagination</div>
+          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€139,99</div>
+          <button class="saber-mais-btn">Saber mais</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    © 2025 Essentia. Todos os direitos reservados.
+  </footer>
+  <script>
+    function filtrarProdutos() {
+      const termo = document.getElementById('pesquisa-input').value.trim().toLowerCase();
+      const cor = document.querySelector('#cor-options .selected').dataset.value;
+      const temp = document.querySelector('#temp-options .selected').dataset.value;
+
+      // Para cada produto, defina os atributos data-cor e data-temp conforme necessário
+      document.querySelectorAll('.produto-card').forEach(card => {
+        const titulo = card.querySelector('.produto-titulo').textContent.toLowerCase();
+        const corProduto = card.getAttribute('data-cor') || '';
+        const tempProduto = card.getAttribute('data-temp') || '';
+
+        // Filtro por texto
+        const matchTexto = termo === '' || titulo.includes(termo);
+
+        // Filtro por cor
+        const matchCor = !cor || corProduto === cor;
+
+        // Filtro por temperatura
+        const matchTemp = !temp || tempProduto === temp;
+
+        if (matchTexto && matchCor && matchTemp) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Função para custom select (cor)
+    const corSelect = document.getElementById('cor-select');
+    const corTrigger = document.getElementById('cor-trigger');
+    const corOptions = document.getElementById('cor-options').children;
+
+    corSelect.addEventListener('click', function(e) {
+      this.classList.toggle('open');
+    });
+    Array.from(corOptions).forEach(option => {
+      option.addEventListener('click', function(e) {
+        Array.from(corOptions).forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        corTrigger.textContent = this.textContent;
+        corSelect.classList.remove('open');
+      });
+    });
+
+    // Função para custom select (temperatura)
+    const tempSelect = document.getElementById('temp-select');
+    const tempTrigger = document.getElementById('temp-trigger');
+    const tempOptions = document.getElementById('temp-options').children;
+
+    tempSelect.addEventListener('click', function(e) {
+      this.classList.toggle('open');
+    });
+    Array.from(tempOptions).forEach(option => {
+      option.addEventListener('click', function(e) {
+        Array.from(tempOptions).forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        tempTrigger.textContent = this.textContent;
+        tempSelect.classList.remove('open');
+      });
+    });
+
+    // Fecha ambos custom selects ao clicar fora
+    document.addEventListener('click', function(e) {
+      if (!corSelect.contains(e.target)) corSelect.classList.remove('open');
+      if (!tempSelect.contains(e.target)) tempSelect.classList.remove('open');
+    });
+
+    // Adicione os atributos data-cor e data-temp aos cards dos produtos:
+    document.addEventListener('DOMContentLoaded', function() {
+      // Exemplo para os 3 produtos:
+      const produtos = [
+        {
+          seletor: 'img/SWY.avif',
+          cor: 'amadeirado',
+          temp: 'quente'
+        },
+        {
+          seletor: 'img/JPGM.webp',
+          cor: 'oriental',
+          temp: 'moderado'
+        },
+        {
+          seletor: 'img/LVI.jpg',
+          cor: 'cítrico',
+          temp: 'fresco'
+        }
+      ];
+      document.querySelectorAll('.produto-card').forEach((card, i) => {
+        if(produtos[i]) {
+          card.setAttribute('data-cor', produtos[i].cor);
+          card.setAttribute('data-temp', produtos[i].temp);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

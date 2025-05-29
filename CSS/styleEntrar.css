@@ -100,6 +100,7 @@ label {
   color: #0a2236;
   font-size: 1.03rem;
 }
+
 input, .button {
   width: 100%; /* Garante que inputs e botões tenham a mesma largura */
   box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
