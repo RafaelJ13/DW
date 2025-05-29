@@ -1,0 +1,253 @@
+:root {
+  --cor-primaria: #0A1A2F;
+  --cor-destaque: #F4741F;
+  --cor-fundo: #F6F6F6;
+  --cor-branco: #FFFFFF;
+  --cor-texto: #2C2C2C;
+  --azul-escuro: #0A1A2F;
+  --laranja: #F4741F;
+}
+
+body {
+  margin: 0;
+  font-family: 'Mulish', Arial, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background: var(--azul-escuro);
+  color: var(--cor-branco);
+  padding: 0;
+  box-shadow: 0 2px 16px rgba(10,34,54,0.08);
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 68px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  margin-right: 20px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+}
+
+.nav-links a {
+  position: relative;
+  color: var(--cor-branco);
+  text-decoration: none;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+  padding: 4px 0;
+}
+
+.nav-links a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--laranja);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
+.nav-profile a {
+  position: relative;
+  color: var(--cor-branco);
+  text-decoration: none;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+  padding: 4px 0;
+}
+
+.nav-profile a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--laranja);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+}
+
+.nav-profile a:hover::after,
+.nav-profile a.active::after {
+  transform: scaleX(1);
+}
+
+.nav-profile a.active,
+.nav-profile a:hover {
+  color: var(--laranja);
+}
+
+.nav-links a:hover, 
+.nav-profile a:hover {
+  color: var(--laranja);
+  font-size: 1.08rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  width: 100%;
+  background: var(--cor-branco);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-flex {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.perfil-campos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 1 320px;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #dde2e6;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input:focus {
+  border-color: var(--cor-destaque);
+  outline: none;
+}
+
+.button {
+  background: var(--cor-destaque);
+  color: var(--cor-branco);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background: #e66a12;
+}
+
+.perfil-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 180px;
+}
+
+.foto-preview {
+  width: 120px;
+  height: 120px;
+  background: #dde2e6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.salvar-btn {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.vincular-contas {
+  display: flex;
+  gap: 12px;
+  margin-top: 0;
+}
+
+.vincular-btn {
+  flex: 1 1 0;
+  width: 50%;
+  min-width: 0;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+footer {
+  background: var(--cor-primaria);
+  color: var(--cor-branco);
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 900px) {
+  .perfil-flex {
+    flex-direction: column;
+    gap: 24px;
+    align-items: stretch;
+  }
+  .perfil-foto {
+    align-items: flex-start;
+    min-width: 0;
+  }
+}
