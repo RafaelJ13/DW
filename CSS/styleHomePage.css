@@ -1,0 +1,197 @@
+/* style.css */
+
+/* Fontes Google sugeridas */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap');
+
+:root {
+  --cor-primaria: #0A1A2F;
+  --cor-destaque: #F4741F;
+  --cor-fundo: #F6F6F6;
+  --cor-texto: #2C2C2C;
+  --cor-branco: #FFFFFF;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  background-color: var(--cor-branco);
+  color: var(--cor-texto);
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--cor-primaria);
+    color: #F6F6F6;
+    padding: 15px 0;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+    background: linear-gradient(to Bottom, #0A1A2F, transparent 110%); /* usa tua cor primária */
+    border-bottom: none;
+}
+
+header.scrolled {
+    background: var(--cor-primaria); /* Keeps the background consistent */
+    padding: 10px 0; /* Slightly reduce padding when scrolled */
+  }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--cor-branco);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+
+/* Hero */
+.hero {
+  background-color: var(--cor-branco);
+  padding: 60px 0;
+  margin-top: 70px;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+  }
+  
+  .image-fade {
+    flex: 1;
+    position: relative;
+    max-width: 50%;
+    -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+    mask-image: linear-gradient(to left, black 60%, transparent 100%);
+  }
+  
+  .image-fade img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .hero .text {
+    flex: 1;
+    padding: 2rem;
+  }
+  
+
+.hero .text h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.hero .text p {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.hero button {
+  background-color: var(--cor-destaque);
+  color: var(--cor-branco);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hero img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Sobre nós */
+.sobre-nos {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: var(--cor-fundo);
+}
+
+.sobre-nos h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2em;
+}
+
+/* Produtos */
+.produtos {
+  padding: 60px 0;
+  background-color: var(--cor-branco);
+}
+
+.produtos h2 {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2em;
+  margin-bottom: 40px;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background-color: var(--cor-fundo);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 280px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  margin: 10px 0 5px;
+}
+
+.card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: var(--cor-destaque);
+  color: var(--cor-branco);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  text-align: center;
+  padding: 30px 10px;
+  font-size: 0.9em;
+}
