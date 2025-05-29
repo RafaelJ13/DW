@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Perfil - Essentia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="img/Logo.png">
+  <link rel="stylesheet" href="CSS/styleEditarPerfil.css">
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="nav-left">
+        <div class="logo">Essentia</div>
+        <div class="nav-links">
+          <a href="index.html">Início</a>
+          <a href="Produtos.html">Produtos</a>
+        </div>
+      </div>
+      <div class="nav-profile"><a href="EditarPerfil.html" class="active">Perfil</a></div>
+    </div>
+  </header>
+  <main>
+    <div class="perfil-container">
+      <form id="editar-perfil-form">
+        <div class="perfil-flex">
+          <div class="perfil-campos">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" disabled>
+
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha">
+
+            <label for="morada">Morada</label>
+            <input type="text" id="morada" name="morada" placeholder="Digite sua morada">
+
+            <label for="telefone">Telefone (opcional)</label>
+            <input type="text" id="telefone" name="telefone" placeholder="Digite seu telefone">
+
+            <button type="submit" class="button salvar-btn">Salvar Alterações</button>
+            <div class="vincular-contas">
+              <button type="button" class="button vincular-btn">Vincular Google</button>
+              <button type="button" class="button vincular-btn">Vincular Apple</button>
+            </div>
+          </div>
+          <div class="perfil-foto">
+            <div class="foto-preview">
+              <img src="img/default-profile.jpg" alt="Foto de perfil" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            </div>
+            <button type="button" class="button" id="mudar-foto">Mudar foto de perfil</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer>
+    © 2025 Essentia. Todos os direitos reservados.
+  </footer>
+  <script src="JS/scriptEditarPerfil.js"></script>
+</body>
+</html>
