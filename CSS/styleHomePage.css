@@ -58,10 +58,19 @@ header.scrolled {
 }
 
 .nav-links a {
+  color: #fff; /* Cor padrão dos links */
   text-decoration: none;
-  color: var(--cor-branco);
+  font-size: 1rem;
   font-weight: 500;
   transition: color 0.3s ease;
+}
+
+.nav-links a.active {
+  color: #ff7d1a; /* Cor laranja para o link ativo */
+}
+
+.nav-links a:hover {
+  color: #ff7d1a; /* Cor laranja ao passar o mouse */
 }
 
 
