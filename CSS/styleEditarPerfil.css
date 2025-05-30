@@ -29,7 +29,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 48px;
+  padding: 0 72px; /* Alterado de 48px para 72px */
   height: 68px;
 }
 
@@ -127,6 +127,60 @@ header {
   transition: color 0.2s;
 }
 
+/* Menu dropdown perfil */
+.nav-profile.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  color: var(--cor-branco);
+  font-size: 1em;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  z-index: 1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 12px 24px; /* Aumenta a margem interna das opções */
+  text-decoration: none !important; /* Garante que não tenha underline */
+  display: block;
+  font-size: 1em;
+  box-sizing: border-box;
+  border: none;
+}
+
+/* Garante que todas as opções, incluindo "Sair", não tenham underline */
+.dropdown-content a:visited,
+.dropdown-content a:active,
+.dropdown-content a:hover {
+  text-decoration: none !important;
+}
+
+.dropdown-content a:hover,
+.dropdown-content a.active {
+  background-color: #f1f1f1;
+}
+
+.nav-profile.dropdown:hover .dropdown-content,
+.nav-profile.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
 main {
   flex: 1;
   display: flex;
@@ -142,7 +196,7 @@ main {
   max-width: 800px;
   width: 100%;
   background: var(--cor-branco);
-  padding: 40px;
+  padding: 56px; /* Alterado de 40px para 56px */
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Favoritos - Essentia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/styleFavoritos.css">
+  <style>
+    .produtos-titulo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .produtos-titulo::before {
+      content: "❤";
+      color: #ff7d1a;
+      font-size: 1.3em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="nav-left">
+        <div class="logo">Essentia</div>
+        <div class="nav-links">
+          <a href="index.html">Início</a>
+          <a href="Produtos.html">Produtos</a>
+        </div>
+      </div>
+      <div class="nav-profile dropdown">
+        <button class="profile-btn">
+          Perfil 
+        </button>
+        <div class="dropdown-content">
+          <a href="EditarPerfil.html">Editar Perfil</a>
+          <a href="VerPerfil.html">Ver Perfil</a>
+          <a href="Favoritos.html" class="active">Favoritos</a>
+          <a href="logout.html">Sair</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="produtos-titulo">Meus Favoritos</div>
+    <div class="produtos-lista-bg">
+      <div class="produtos-lista">
+        <!-- Exemplo de produtos favoritos -->
+        <div class="produto-card" data-fragrancia="amadeirado" data-temp="quente">
+          <div class="produto-img">
+            <img src="img/SWY.avif" alt="Stronger With You: Intensly">
+          </div>
+          <div class="produto-titulo">Stronger With You: Intensly</div>
+          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€69,99</div>
+          <button class="saber-mais-btn">Saber mais</button>
+        </div>
+        <div class="produto-card" data-fragrancia="oriental" data-temp="moderado">
+          <div class="produto-img">
+            <img src="img/JPGM.webp" alt="Jean Paul Gaultier Le Male">
+          </div>
+          <div class="produto-titulo">Jean Paul Gaultier Le Male</div>
+          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€59,99</div>
+          <button class="saber-mais-btn">Saber mais</button>
+        </div>
+        <!-- Adicione mais produtos favoritos conforme necessário -->
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:32px; color:#888;" id="sem-favoritos" hidden>
+      Você ainda não tem produtos favoritos.
+    </div>
+  </main>
+  <footer>
+    © 2025 Essentia. Todos os direitos reservados.
+  </footer>
+  <script>
+    // Exemplo: esconder lista se não houver favoritos
+    if(document.querySelectorAll('.produto-card').length === 0) {
+      document.getElementById('sem-favoritos').hidden = false;
+    }
+  </script>
+</body>
+</html>
