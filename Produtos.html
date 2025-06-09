@@ -39,39 +39,43 @@
   </header>
   
   <main>
-    <form class="busca-area" style="flex-wrap: wrap; gap: 18px;">
+    <form class="busca-area">
+      <div class="filtro-grupo">
+        <label for="pesquisa-input">Pesquisar:</label>
         <input
           type="text"
           id="pesquisa-input"
           placeholder="Pesquisar produtos..."
           class="input-pesquisa"
-          style="flex: 2 1 220px;"
+          
           oninput="filtrarProdutos()"
         >
       </div>
       <div class="filtro-grupo">
-        <label>Fragrância: </label>
-        <div class="custom-select" tabindex="0" id="fragrancia-select">
-          <span class="custom-select-trigger" id="fragrancia-trigger">Todas</span>
-          <div class="custom-options" id="fragrancia-options">
-            <span class="custom-option selected" data-value="">Todas</span>
-            <span class="custom-option" data-value="amadeirado">Amadeirado</span>
-            <span class="custom-option" data-value="cítrico">Cítrico</span>
-            <span class="custom-option" data-value="floral">Floral</span>
-            <span class="custom-option" data-value="oriental">Oriental</span>
-            <span class="custom-option" data-value="fresco">Fresco</span>
+        <div>
+          <label>Fragrância:</label>
+          <div class="custom-select" tabindex="0" id="fragrancia-select">
+            <span class="custom-select-trigger" id="fragrancia-trigger">Todas</span>
+            <div class="custom-options" id="fragrancia-options">
+              <span class="custom-option selected" data-value="">Todas</span>
+              <span class="custom-option" data-value="amadeirado">Amadeirado</span>
+              <span class="custom-option" data-value="cítrico">Cítrico</span>
+              <span class="custom-option" data-value="floral">Floral</span>
+              <span class="custom-option" data-value="oriental">Oriental</span>
+              <span class="custom-option" data-value="fresco">Fresco</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="filtro-grupo">
-        <label>Temperatura: </label>
-        <div class="custom-select" tabindex="0" id="temp-select">
-          <span class="custom-select-trigger" id="temp-trigger">Todas</span>
-          <div class="custom-options" id="temp-options">
-            <span class="custom-option selected" data-value="">Todas</span>
-            <span class="custom-option" data-value="quente">Quente</span>
-            <span class="custom-option" data-value="moderado">Moderado</span>
-            <span class="custom-option" data-value="frio">Frio</span>
+        <div>
+          <label>Temperatura:</label>
+          <div class="custom-select" tabindex="0" id="temp-select">
+            <span class="custom-select-trigger" id="temp-trigger">Todas</span>
+            <div class="custom-options" id="temp-options">
+              <span class="custom-option selected" data-value="">Todas</span>
+              <span class="custom-option" data-value="quente">Quente</span>
+              <span class="custom-option" data-value="moderado">Moderado</span>
+              <span class="custom-option" data-value="frio">Frio</span>
+            </div>
           </div>
         </div>
       </div>
