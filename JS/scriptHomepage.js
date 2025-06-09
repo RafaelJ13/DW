@@ -16,3 +16,24 @@ function scrollToProdutos() {
     }
   });
   
+  const btn = document.getElementById('mobileMenuBtn');
+  const nav = document.getElementById('mobileNav');
+  btn.onclick = function() {
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  };
+  // Fecha menu ao clicar em link
+  document.querySelectorAll('#mobileNav a').forEach(link => {
+    link.onclick = () => {
+      btn.classList.remove('open');
+      nav.classList.remove('open');
+    };
+  });
+  // Fecha menu ao clicar no X
+const closeBtn = document.querySelector('.close-mobile-nav');
+if (closeBtn) {
+  closeBtn.onclick = () => {
+    btn.classList.remove('open');
+    nav.classList.remove('open');
+  };
+}
