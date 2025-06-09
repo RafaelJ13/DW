@@ -18,6 +18,17 @@ function filtrarProdutos() {
         card.style.display = 'none';
       }
     });
+
+    // Depois de filtrar, verifique se há produtos visíveis
+    const produtosVisiveis = document.querySelectorAll('.produto-card:not([style*="display: none"])');
+    const nenhumProdutoMsg = document.getElementById('nenhum-produto');
+    if (nenhumProdutoMsg) {
+      if (produtosVisiveis.length === 0) {
+        nenhumProdutoMsg.style.display = 'block';
+      } else {
+        nenhumProdutoMsg.style.display = 'none';
+      }
+    }
   }
 
   const fragranciaSelect = document.getElementById('fragrancia-select');
@@ -56,3 +67,27 @@ function filtrarProdutos() {
     if (!fragranciaSelect.contains(e.target)) fragranciaSelect.classList.remove('open');
     if (!tempSelect.contains(e.target)) tempSelect.classList.remove('open');
   });
+
+  const btn = document.getElementById('mobileMenuBtn');
+  const nav = document.getElementById('mobileNav');
+  if (btn && nav) {
+    btn.onclick = function() {
+      btn.classList.toggle('open');
+      nav.classList.toggle('open');
+    };
+    // Fecha menu ao clicar em link
+    document.querySelectorAll('#mobileNav a').forEach(link => {
+      link.onclick = () => {
+        btn.classList.remove('open');
+        nav.classList.remove('open');
+      };
+    });
+    // Fecha menu ao clicar no X
+    const closeBtn = document.querySelector('.close-mobile-nav');
+    if (closeBtn) {
+      closeBtn.onclick = () => {
+        btn.classList.remove('open');
+        nav.classList.remove('open');
+      };
+    }
+  }
