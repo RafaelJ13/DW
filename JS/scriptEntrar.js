@@ -53,8 +53,8 @@ function authenticateUser(email, password) {
     const user = request.result;
     if (user && user.password === password) {
       salvarSessao(email);
-      alert("Login realizado com sucesso!");
       atualizarMenu();
+      window.location.href = "VerPerfil.html"; // Redireciona para o perfil
     } else {
       alert("Email ou senha incorretos.");
     }
@@ -133,9 +133,12 @@ document.getElementById("signup-form").addEventListener("submit", function (even
   const nome = document.getElementById("nome").value;
   const email = document.getElementById("email-cadastro").value;
   const senha = document.getElementById("senha-cadastro").value;
+  // Novos campos
+  const morada = ""; // Não definido por padrão
+  const telefone = ""; // Não definido por padrão
 
   if (nome && email && senha) {
-    addUser({ nome, email, password: senha });
+    addUser({ nome, email, password: senha, morada, telefone });
     event.target.reset();
   } else {
     alert("Por favor, preencha todos os campos.");
