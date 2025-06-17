@@ -92,45 +92,58 @@ function filtrarProdutos() {
     }
   }
 
-  // Dropdown perfil
   document.addEventListener("DOMContentLoaded", function () {
-    const navProfile = document.querySelector('.nav-profile');
-    const profileBtn = document.querySelector('.profile-btn');
-    if (navProfile && profileBtn) {
-      profileBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        // Remove sessão do IndexedDB e redireciona para login
-        const request = indexedDB.open("EssentiaDB", 1);
-        request.onsuccess = function (event) {
-          const db = event.target.result;
-          const tx = db.transaction(["session"], "readwrite");
-          const store = tx.objectStore("session");
-          store.delete("currentSession");
-          tx.oncomplete = function () {
-            window.location.href = "Entrar.html";
-          };
-        };
-      });
-    }
-
-    // Mobile menu
-    const mobileBtn = document.getElementById('mobileMenuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    const closeBtn = document.querySelector('.close-mobile-nav');
-    if (mobileBtn && mobileNav) {
-      mobileBtn.addEventListener('click', function () {
-        mobileNav.classList.add('open');
-      });
-      if (closeBtn) {
-        closeBtn.addEventListener('click', function () {
-          mobileNav.classList.remove('open');
-        });
-      }
-      // Fecha ao clicar fora
-      document.addEventListener('click', function (e) {
-        if (!mobileNav.contains(e.target) && !mobileBtn.contains(e.target)) {
-          mobileNav.classList.remove('open');
+    const navAuthArea = document.getElementById('nav-auth-area');
+    const request = indexedDB.open("EssentiaDB", 1);
+    request.onsuccess = function (event) {
+      const db = event.target.result;
+      const tx = db.transaction(["session"], "readonly");
+      const store = tx.objectStore("session");
+      const getSession = store.get("currentSession");
+      getSession.onsuccess = function () {
+        const session = getSession.result;
+        if (session && session.email) {
+          navAuthArea.innerHTML = `
+            <div class="nav-profile dropdown">
+              <button class="profile-btn">Perfil</button>
+              <div class="dropdown-content">
+                <a href="EditarPerfil.html">Editar Perfil</a>
+                <a href="VerPerfil.html">Ver Perfil</a>
+                <a href="Favoritos.html">Favoritos</a>
+                <a href="#" id="logout-link">Sair</a>
+              </div>
+            </div>
+          `;
+          const navProfile = navAuthArea.querySelector('.nav-profile');
+          const profileBtn = navAuthArea.querySelector('.profile-btn');
+          profileBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            navProfile.classList.toggle('open');
+          });
+          document.addEventListener('click', function (e) {
+            if (!navProfile.contains(e.target)) navProfile.classList.remove('open');
+          });
+          navProfile.querySelector('.dropdown-content').addEventListener('click', function (e) {
+            e.stopPropagation();
+          });
+          navAuthArea.querySelector('#logout-link').addEventListener('click', function (e) {
+            e.preventDefault();
+            const req = indexedDB.open("EssentiaDB", 1);
+            req.onsuccess = function (event) {
+              const db = event.target.result;
+              const tx = db.transaction(["session"], "readwrite");
+              const store = tx.objectStore("session");
+              store.delete("currentSession");
+              tx.oncomplete = function () {
+                window.location.href = "Entrar.html";
+              };
+            };
+          });
+        } else {
+          navAuthArea.innerHTML = `<a href="Entrar.html" class="profile-btn" style="background:#F4741F;color:#fff;border-radius:8px;padding:8px 18px;font-weight:600;text-decoration:none;">Entrar</a>`;
         }
-      });
-    }
+      };
+    };
+
+    // ... O RESTO DO TEU JS (filtrarProdutos, selects, mobile menu, etc) ...
   });
