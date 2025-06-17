@@ -145,5 +145,19 @@ function filtrarProdutos() {
       };
     };
 
-    // ... O RESTO DO TEU JS (filtrarProdutos, selects, mobile menu, etc) ...
+    document.querySelectorAll('.logout-link, #logout-link').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const req = indexedDB.open("EssentiaDB", 1);
+        req.onsuccess = function (event) {
+          const db = event.target.result;
+          const tx = db.transaction(["session"], "readwrite");
+          const store = tx.objectStore("session");
+          store.delete("currentSession");
+          tx.oncomplete = function () {
+            window.location.href = "Entrar.html";
+          };
+        };
+      });
+    });
   });

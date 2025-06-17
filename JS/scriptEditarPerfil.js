@@ -84,3 +84,22 @@ document.getElementById("editar-perfil-form").addEventListener("submit", functio
 document.getElementById("mudar-foto").addEventListener("click", function () {
   alert("Funcionalidade de mudar foto ainda não implementada.");
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Seleciona todos os links de logout
+  document.querySelectorAll('.logout-link, #logout-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const req = indexedDB.open("EssentiaDB", 1);
+      req.onsuccess = function (event) {
+        const db = event.target.result;
+        const tx = db.transaction(["session"], "readwrite");
+        const store = tx.objectStore("session");
+        store.delete("currentSession");
+        tx.oncomplete = function () {
+          window.location.href = "Entrar.html";
+        };
+      };
+    });
+  });
+});
