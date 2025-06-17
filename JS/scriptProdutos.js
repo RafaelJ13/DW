@@ -91,3 +91,46 @@ function filtrarProdutos() {
       };
     }
   }
+
+  // Dropdown perfil
+  document.addEventListener("DOMContentLoaded", function () {
+    const navProfile = document.querySelector('.nav-profile');
+    const profileBtn = document.querySelector('.profile-btn');
+    if (navProfile && profileBtn) {
+      profileBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        // Remove sessão do IndexedDB e redireciona para login
+        const request = indexedDB.open("EssentiaDB", 1);
+        request.onsuccess = function (event) {
+          const db = event.target.result;
+          const tx = db.transaction(["session"], "readwrite");
+          const store = tx.objectStore("session");
+          store.delete("currentSession");
+          tx.oncomplete = function () {
+            window.location.href = "Entrar.html";
+          };
+        };
+      });
+    }
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeBtn = document.querySelector('.close-mobile-nav');
+    if (mobileBtn && mobileNav) {
+      mobileBtn.addEventListener('click', function () {
+        mobileNav.classList.add('open');
+      });
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+          mobileNav.classList.remove('open');
+        });
+      }
+      // Fecha ao clicar fora
+      document.addEventListener('click', function (e) {
+        if (!mobileNav.contains(e.target) && !mobileBtn.contains(e.target)) {
+          mobileNav.classList.remove('open');
+        }
+      });
+    }
+  });

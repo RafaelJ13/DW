@@ -287,6 +287,44 @@ input:focus {
   padding-right: 0;
 }
 
+/* Botão customizado para upload de ficheiro */
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.btn-upload {
+  background: var(--cor-destaque);
+  color: var(--cor-branco);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.btn-upload:hover {
+  background: #e66a12;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
 footer {
   background: var(--cor-primaria);
   color: var(--cor-branco);

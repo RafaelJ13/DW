@@ -61,7 +61,8 @@ header {
 }
 
 .nav-profile {
-  margin-left: auto;
+  position: relative;
+  margin-left: 24px;
   display: flex;
   align-items: center;
 }
@@ -106,6 +107,23 @@ header {
 .nav-profile a:hover,
 .nav-profile a.active {
   color: var(--laranja);
+}
+
+.profile-btn {
+  background: #0a2236;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.profile-btn:hover,
+.nav-profile.open .profile-btn {
+  background: #14325a;
 }
 
 main {
@@ -488,6 +506,39 @@ footer {
   font-size: 2.5em;
   cursor: pointer;
   z-index: 1200;
+}
+
+/* Dropdown perfil */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0 2px 8px rgba(10,34,54,0.10);
+  border-radius: 8px;
+  z-index: 10;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.nav-profile.open .dropdown-content {
+  display: flex;
+}
+
+.dropdown-content a {
+  color: #0a2236;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background: #f6f6f6;
+  color: #ff7d1a;
 }
 
 /* Responsivo */
