@@ -76,7 +76,14 @@ header {
   transition: color 0.2s;
   padding: 4px 0;
 }
-
+.icon-carrinho {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  height: 60px;
+  background: transparent;
+  padding: 0 32px;
+}
 .nav-links a::after,
 .nav-profile a::after {
   content: "";
