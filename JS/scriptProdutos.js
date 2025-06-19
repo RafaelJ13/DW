@@ -90,4 +90,5 @@ function filtrarProdutos() {
         nav.classList.remove('open');
       };
     }
+
   }

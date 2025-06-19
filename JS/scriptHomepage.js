@@ -37,3 +37,4 @@ if (closeBtn) {
     nav.classList.remove('open');
   };
 }
+
