@@ -19,8 +19,7 @@
       const password = document.getElementById('admin-password').value.trim();
 
       if (email === "admin@admin.com" && password === "admin") {
-        // Salva sessão admin no IndexedDB
-        const request = indexedDB.open("EssentiaDB", 1);
+        const request = indexedDB.open("EssentiaDB", 3); // use a versão mais recente
         request.onsuccess = function(event) {
           const db = event.target.result;
           const tx = db.transaction(["session"], "readwrite");

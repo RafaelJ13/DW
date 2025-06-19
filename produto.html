@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Produto</title>
+  <link rel="stylesheet" href="CSS/styleProdutos.css">
+  <style>
+    body {
+      background: #f6f7fa;
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(10,34,54,0.10);
+      padding: 32px 28px 28px 28px;
+    }
+    .produto-topo {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .produto-img-area {
+      background: #f6f7fa;
+      border-radius: 12px;
+      width: 260px;
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(10,34,54,0.08);
+    }
+    .produto-img-area img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(10,34,54,0.10);
+      background: #fff;
+      display: block;
+    }
+    .produto-info {
+      flex: 1;
+      min-width: 240px;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .produto-nome {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ff7d1a;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    .produto-descricao {
+      font-size: 1.1rem;
+      color: #222;
+      margin-bottom: 8px;
+    }
+    .produto-preco {
+      font-size: 1.3rem;
+      color: #0a2236;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .produto-dados {
+      background: #f6f7fa;
+      border-radius: 8px;
+      padding: 12px 10px;
+      color: #444;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .produto-acoes {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .produto-acoes label {
+      font-weight: 600;
+      color: #0a2236;
+      margin-right: 4px;
+    }
+    .produto-acoes input[type="number"] {
+      border: 1.5px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 1rem;
+      width: 60px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .produto-acoes input[type="number"]:focus {
+      border-color: #ff7d1a;
+    }
+    .produto-acoes button {
+      background: #ff7d1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(10,34,54,0.08);
+    }
+    .produto-acoes button:hover {
+      background: #e86c00;
+    }
+    .produto-footer {
+      text-align: center;
+      color: #b1b5bb;
+      font-size: 0.97rem;
+      margin-top: 32px;
+      padding-bottom: 16px;
+    }
+    @media (max-width: 900px) {
+      main {
+        padding: 18px 4vw 18px 4vw;
+      }
+      .produto-topo {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+      }
+      .produto-img-area {
+        width: 180px;
+        height: 180px;
+      }
+      .produto-info {
+        max-width: 98vw;
+      }
+    }
+  </style>
+</head>
+<body>
+<header id="main-header">
+    <div class="nav-bar">
+      <div class="nav-left">
+        <div class="logo">Essentia</div>
+        <div class="nav-links">
+          <a href="index.html">Início</a>
+          <a href="Produtos.html" class="active">Produtos</a>
+        </div>
+      </div>
+      <div id="nav-auth-area">
+        <div class="nav-profile dropdown">
+          <button class="profile-btn">Perfil</button>
+          <div class="dropdown-content">
+            <a href="EditarPerfil.html">Editar Perfil</a>
+            <a href="VerPerfil.html">Ver Perfil</a>
+            <a href="Favoritos.html">Favoritos</a>
+            <a href="#" id="logout-link">Sair</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="mobile-nav" id="mobileNav">
+        <h1 class="logo">Essentia</h1>
+        <button class="close-mobile-nav" aria-label="Fechar menu">&times;</button>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="Produtos.html" class="active">Produtos</a></li>
+          <li><a href="EditarPerfil.html">Editar Perfil</a></li>
+          <li><a href="VerPerfil.html">Ver Perfil</a></li>
+          <li><a href="Favoritos.html">Favoritos</a></li>
+          <li><a href="logout.html">Sair</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="produto-singular">
+    <!-- Conteúdo carregado via JS -->
+  </main>
+  <footer class="produto-footer">
+    &copy; 2025 Essentia. Todos os direitos reservados.
+  </footer>
+  <script>
+    // Função para obter parâmetro da URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Carregar dados do produto
+    fetch('json/produtos.json')
+      .then(res => res.json())
+      .then(produtos => {
+        const id = getQueryParam('id');
+        const produto = produtos.find(p => p.id === id);
+        const container = document.getElementById('produto-singular');
+        if (!produto) {
+          container.innerHTML = "<p style='text-align:center;color:#b1b5bb;font-weight:600;margin:48px 0;'>Produto não encontrado.</p>";
+          return;
+        }
+        container.innerHTML = `
+          <div class="produto-topo">
+            <div class="produto-img-area">
+              <img src="${produto.imagem}" alt="${produto.nome}">
+            </div>
+            <div class="produto-info">
+              <div class="produto-nome">${produto.nome}</div>
+              <div class="produto-descricao">${produto.descricao}</div>
+              <div class="produto-preco">€${produto.preco.toFixed(2)}</div>
+              <div class="produto-dados">
+                <strong>Notas:</strong> ${produto.filtro.fragrancia} &nbsp;|&nbsp;
+                <strong>Ocasião:</strong> ${produto.filtro.temp} &nbsp;|&nbsp;
+                <strong>Stock:</strong> ${produto.stock}
+              </div>
+              <div class="produto-acoes">
+                <label for="quantidade">Qtd:</label>
+                <input type="number" id="quantidade" min="1" value="1">
+                <button id="btn-carrinho">Adicionar ao carrinho</button>
+                <button id="btn-favorito">Favorito</button>
+              </div>
+            </div>
+          </div>
+        `;
+        document.getElementById('btn-carrinho').onclick = function() {
+          const qtd = parseInt(document.getElementById('quantidade').value) || 1;
+          adicionarAoCarrinho(produto.id, qtd);
+          alert("Produto adicionado ao carrinho!");
+        };
+        document.getElementById('btn-favorito').onclick = function() {
+          alert("Produto adicionado aos favoritos!");
+        };
+      });
+
+      function adicionarAoCarrinho(id, quantidade) {
+  const carrinho = JSON.parse(localStorage.getItem('carrinho') || '[]');
+  const idx = carrinho.findIndex(item => item.id === id);
+  if (idx >= 0) {
+    carrinho[idx].quantidade += quantidade;
+  } else {
+    // Você pode buscar os dados do produto do JSON carregado
+    fetch('json/produtos.json')
+      .then(res => res.json())
+      .then(produtos => {
+        const produto = produtos.find(p => p.id === id);
+        if (produto) {
+          carrinho.push({
+            id: produto.id,
+            nome: produto.nome,
+            preco: produto.preco,
+            imagem: produto.imagem,
+            quantidade: quantidade
+          });
+          localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        }
+      });
+    return;
+  }
+  localStorage.setItem('carrinho', JSON.stringify(carrinho));
+}
+  </script>
+</body>
+</html>

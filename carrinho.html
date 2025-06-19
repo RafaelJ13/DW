@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrinho</title>
+  <link rel="stylesheet" href="CSS/styleProdutos.css">
+  <style>
+    .carrinho-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(10,34,54,0.10);
+      padding: 32px 28px 28px 28px;
+    }
+    .carrinho-titulo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ff7d1a;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .carrinho-lista {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+    .carrinho-lista th, .carrinho-lista td {
+      padding: 12px 8px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    .carrinho-lista th {
+      background: #f6f7fa;
+      color: #0a2236;
+      font-weight: 700;
+    }
+    .carrinho-lista td img {
+      width: 60px;
+      border-radius: 6px;
+    }
+    .carrinho-acoes button {
+      background: #ff7d1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin: 0 2px;
+    }
+    .carrinho-acoes button:hover {
+      background: #e86c00;
+    }
+    .carrinho-total {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0a2236;
+      margin-bottom: 18px;
+    }
+    .carrinho-botoes {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+    .carrinho-botoes button {
+      background: #ff7d1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carrinho-botoes button:hover {
+      background: #e86c00;
+    }
+    .carrinho-vazio {
+      text-align: center;
+      color: #b1b5bb;
+      font-weight: 600;
+      margin: 48px 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Copie aqui o header da sua página de produtos -->
+  <header id="main-header">
+    <div class="nav-bar">
+      <div class="nav-left">
+        <div class="logo">Essentia</div>
+        <div class="nav-links">
+          <a href="index.html">Início</a>
+          <a href="Produtos.html" class="active">Produtos</a>
+        </div>
+      </div>
+      <div id="nav-auth-area">
+        <div class="nav-profile dropdown">
+          <button class="profile-btn">Perfil</button>
+          <div class="dropdown-content">
+            <a href="EditarPerfil.html">Editar Perfil</a>
+            <a href="VerPerfil.html">Ver Perfil</a>
+            <a href="Favoritos.html">Favoritos</a>
+            <a href="#" id="logout-link">Sair</a>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="mobile-nav" id="mobileNav">
+        <h1 class="logo">Essentia</h1>
+        <button class="close-mobile-nav" aria-label="Fechar menu">&times;</button>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="Produtos.html" class="active">Produtos</a></li>
+          <li><a href="EditarPerfil.html">Editar Perfil</a></li>
+          <li><a href="VerPerfil.html">Ver Perfil</a></li>
+          <li><a href="Favoritos.html">Favoritos</a></li>
+          <li><a href="logout.html">Sair</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="carrinho-container">
+      <div class="carrinho-titulo">Carrinho de Compras</div>
+      <div id="carrinho-area"></div>
+    </div>
+  </main>
+  <footer class="footer">
+    &copy; 2025 Essentia. Todos os direitos reservados.
+  </footer>
+  <script>
+    // Simulação de carrinho usando localStorage
+    // Estrutura: [{id, nome, preco, imagem, quantidade}]
+    function getCarrinho() {
+      return JSON.parse(localStorage.getItem('carrinho') || '[]');
+    }
+    function setCarrinho(carrinho) {
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    }
+
+    // Carregar produtos do JSON para mostrar detalhes
+    let produtosJSON = [];
+    fetch('json/produtos.json')
+      .then(res => res.json())
+      .then(produtos => {
+        produtosJSON = produtos;
+        renderCarrinho();
+      });
+
+    function renderCarrinho() {
+      const carrinho = getCarrinho();
+      const area = document.getElementById('carrinho-area');
+      if (!carrinho.length) {
+        area.innerHTML = `<div class="carrinho-vazio">O seu carrinho está vazio.</div>`;
+        return;
+      }
+      let total = 0;
+      let html = `<table class="carrinho-lista">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Imagem</th>
+            <th>Preço</th>
+            <th>Qtd</th>
+            <th>Subtotal</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>`;
+      carrinho.forEach((item, idx) => {
+        const produto = produtosJSON.find(p => p.id === item.id) || {};
+        const preco = produto.preco || item.preco || 0;
+        const subtotal = preco * item.quantidade;
+        total += subtotal;
+        html += `
+          <tr>
+            <td>${produto.nome || item.nome}</td>
+            <td><img src="${produto.imagem || item.imagem}" alt="${produto.nome || item.nome}"></td>
+            <td>€${preco.toFixed(2)}</td>
+            <td>
+              <input type="number" min="1" value="${item.quantidade}" data-idx="${idx}" class="carrinho-qtd" style="width:60px;">
+            </td>
+            <td>€${subtotal.toFixed(2)}</td>
+            <td class="carrinho-acoes">
+              <button onclick="removerItem(${idx})">Remover</button>
+            </td>
+          </tr>
+        `;
+      });
+      html += `</tbody></table>
+        <div class="carrinho-total">Total: €${total.toFixed(2)}</div>
+        <div class="carrinho-botoes">
+          <button onclick="limparCarrinho()">Eliminar Todos</button>
+          <button onclick="comprarCarrinho()">Efetuar Compra</button>
+        </div>
+        <div id="carrinho-msg"></div>
+      `;
+      area.innerHTML = html;
+
+      // Eventos para alterar quantidade
+      area.querySelectorAll('.carrinho-qtd').forEach(input => {
+        input.addEventListener('change', function() {
+          let val = parseInt(this.value);
+          if (isNaN(val) || val < 1) val = 1;
+          this.value = val;
+          alterarQuantidade(parseInt(this.getAttribute('data-idx')), val);
+        });
+      });
+    }
+
+    // Funções globais para botões
+    window.removerItem = function(idx) {
+      const carrinho = getCarrinho();
+      carrinho.splice(idx, 1);
+      setCarrinho(carrinho);
+      renderCarrinho();
+    };
+    window.limparCarrinho = function() {
+      if (confirm("Tem certeza que deseja eliminar todos os itens do carrinho?")) {
+        setCarrinho([]);
+        renderCarrinho();
+      }
+    };
+    window.comprarCarrinho = function() {
+      setCarrinho([]);
+      renderCarrinho();
+      document.getElementById('carrinho-msg').textContent = "Compra efetuada com sucesso! (Simulação)";
+      setTimeout(() => document.getElementById('carrinho-msg').textContent = "", 3000);
+    };
+    function alterarQuantidade(idx, qtd) {
+      const carrinho = getCarrinho();
+      carrinho[idx].quantidade = qtd;
+      setCarrinho(carrinho);
+      renderCarrinho();
+    }
+
+    // Função para adicionar ao carrinho (use nos botões dos produtos)
+    // Exemplo: adicionarAoCarrinho('p1', 2);
+    window.adicionarAoCarrinho = function(id, quantidade) {
+      const carrinho = getCarrinho();
+      const idx = carrinho.findIndex(item => item.id === id);
+      if (idx >= 0) {
+        carrinho[idx].quantidade += quantidade;
+      } else {
+        const produto = produtosJSON.find(p => p.id === id);
+        if (produto) {
+          carrinho.push({
+            id: produto.id,
+            nome: produto.nome,
+            preco: produto.preco,
+            imagem: produto.imagem,
+            quantidade: quantidade
+          });
+        }
+      }
+      setCarrinho(carrinho);
+      renderCarrinho();
+    };
+  </script>
+</body>
+</html>

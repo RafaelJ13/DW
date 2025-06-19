@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Painel do Administrador</title>
+  <title>Painel do Administrador</title> 
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
@@ -21,6 +21,10 @@
         <div id="perfumes-lista">
           <!-- Lista de perfumes será carregada aqui -->
         </div>
+        <button id="salvar-stock-btn" style="margin-top:18px; background:#ff7d1a; color:#fff; border:none; border-radius:8px; padding:10px 28px; font-size:1rem; font-weight:600; cursor:pointer;">
+          Salvar Stock
+        </button>
+        <div id="stock-msg" style="margin-top:10px; color:#0a2236; font-weight:600;"></div>
       </div>
     </section>
   </main>
@@ -30,7 +34,8 @@
   <script>
     // Verificação de sessão admin
     document.addEventListener("DOMContentLoaded", function () {
-      const request = indexedDB.open("EssentiaDB", 1);
+      // Verifica sessão admin (opcional)
+      const request = indexedDB.open("EssentiaDB", 3);
       request.onsuccess = function(event) {
         const db = event.target.result;
         const tx = db.transaction(["session"], "readonly");
@@ -49,7 +54,7 @@
 
     // Logout
     document.getElementById('logout-btn').onclick = function() {
-      const req = indexedDB.open("EssentiaDB", 1);
+      const req = indexedDB.open("EssentiaDB", 3);
       req.onsuccess = function (event) {
         const db = event.target.result;
         const tx = db.transaction(["session"], "readwrite");
@@ -61,71 +66,75 @@
       };
     };
 
-    // Carregar perfumes e mostrar stock
+    // Carregar perfumes do JSON e mostrar stock
     function carregarPerfumes() {
       const lista = document.getElementById('perfumes-lista');
       lista.innerHTML = "<p>A carregar perfumes...</p>";
-      const req = indexedDB.open("EssentiaDB", 1);
-      req.onsuccess = function(event) {
-        const db = event.target.result;
-        if (!db.objectStoreNames.contains("produtos")) {
-          lista.innerHTML = "<p>Nenhum perfume cadastrado.</p>";
-          return;
-        }
-        const tx = db.transaction(["produtos"], "readonly");
-        const store = tx.objectStore("produtos");
-        const perfumes = [];
-        store.openCursor().onsuccess = function(e) {
-          const cursor = e.target.result;
-          if (cursor) {
-            perfumes.push(cursor.value);
-            cursor.continue();
-          } else {
-            if (perfumes.length === 0) {
-              lista.innerHTML = "<p>Nenhum perfume cadastrado.</p>";
-              return;
-            }
-            let html = "<table style='width:100%;border-collapse:collapse'><thead><tr><th style='text-align:left'>Nome</th><th style='text-align:center'>Stock</th><th style='text-align:center'>Ações</th></tr></thead><tbody>";
-            perfumes.forEach(p => {
-              html += `
-                <tr>
-                  <td>${p.nome || "Sem nome"}</td>
-                  <td style="text-align:center" id="stock-${p.id}">${p.stock || 0}</td>
-                  <td style="text-align:center">
-                    <button onclick="alterarStock('${p.id}', 1)">+1</button>
-                    <button onclick="alterarStock('${p.id}', -1)">-1</button>
-                  </td>
-                </tr>
-              `;
-            });
-            html += "</tbody></table>";
-            lista.innerHTML = html;
+      fetch('../json/produtos.json')
+        .then(response => response.json())
+        .then(perfumes => {
+          if (!perfumes.length) {
+            lista.innerHTML = "<p>Nenhum perfume cadastrado.</p>";
+            return;
           }
-        };
-      };
+          let html = "<table style='width:100%;border-collapse:collapse'><thead><tr><th style='text-align:left'>Nome</th><th style='text-align:center'>Stock</th><th style='text-align:center'>Ações</th></tr></thead><tbody>";
+          perfumes.forEach(p => {
+            html += `
+              <tr>
+                <td>${p.nome || "Sem nome"}</td>
+                <td style="text-align:center" id="stock-${p.id}">${p.stock || 0}</td>
+                <td style="text-align:center">
+                  <button onclick="alterarStock('${p.id}', 1)">+1</button>
+                  <button onclick="alterarStock('${p.id}', -1)">-1</button>
+                </td>
+              </tr>
+            `;
+          });
+          html += "</tbody></table>";
+          lista.innerHTML = html;
+          // Salva perfumes em memória para edição
+          window._perfumes = perfumes;
+        })
+        .catch(() => {
+          lista.innerHTML = "<p>Erro ao carregar perfumes.</p>";
+        });
     }
 
-    // Função global para alterar stock
+    // Função para alterar stock e salvar no JSON (simulação pois preciso de backend para funcionar))
     window.alterarStock = function(id, delta) {
-      const req = indexedDB.open("EssentiaDB", 1);
-      req.onsuccess = function(event) {
-        const db = event.target.result;
-        if (!db.objectStoreNames.contains("produtos")) return;
-        const tx = db.transaction(["produtos"], "readwrite");
-        const store = tx.objectStore("produtos");
-        const getReq = store.get(id);
-        getReq.onsuccess = function() {
-          const produto = getReq.result;
-          if (produto) {
-            produto.stock = (produto.stock || 0) + delta;
-            if (produto.stock < 0) produto.stock = 0;
-            store.put(produto);
-            tx.oncomplete = function () {
-              document.getElementById('stock-' + id).textContent = produto.stock;
-            };
-          }
-        };
-      };
+      if (!window._perfumes) return;
+      const perfume = window._perfumes.find(p => p.id === id);
+      if (perfume) {
+        perfume.stock = (perfume.stock || 0) + delta;
+        if (perfume.stock < 0) perfume.stock = 0;
+        document.getElementById('stock-' + id).textContent = perfume.stock;
+        // Atualizar o JSON no servidor (simulação)
+        fetch('../json/produtos.json', {
+          method: 'POST', // No mundo real, seria uma API backend
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(window._perfumes)
+        }).catch(() => {
+          // Em ambiente estático, não é possível salvar, mas a UI atualiza
+        });
+      }
+    };
+
+    // Botão de salvar stock
+    document.getElementById('salvar-stock-btn').onclick = function() {
+      if (!window._perfumes) return;
+      fetch('../json/produtos.json', {
+        method: 'POST', // Só funciona se houver backend para aceitar o POST
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(window._perfumes)
+      })
+      .then(() => {
+        document.getElementById('stock-msg').textContent = "Stock atualizado com sucesso!";
+        setTimeout(() => document.getElementById('stock-msg').textContent = "", 2000);
+      })
+      .catch(() => {
+        document.getElementById('stock-msg').textContent = "Não foi possível salvar o stock (apenas simulação local).";
+        setTimeout(() => document.getElementById('stock-msg').textContent = "", 3000);
+      });
     };
   </script>
   <style>

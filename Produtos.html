@@ -95,35 +95,9 @@
     <div class="produtos-titulo">Lista de produtos</div>
     <div class="produtos-lista-bg">
       
-      <div class="produtos-lista">
-        <div class="produto-card" data-fragrancia="amadeirado" data-temp="quente">
-          <div class="produto-img">
-            <img src="img/SWY.avif" alt="Stronger With You: Intensly">
-          </div>
-          <div class="produto-titulo">Stronger With You: Intensly</div>
-          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€69,99</div>
-          <button class="saber-mais-btn">Saber mais</button>
-        </div>
-        <div id="nenhum-produto" style="display:none; text-align:center; color:#b1b5bb; font-weight:600; margin: 24px 0;">
-          Nenhum produto encontrado.
-        </div>
-        <div class="produto-card" data-fragrancia="oriental" data-temp="moderado">
-          <div class="produto-img">
-            <img src="img/JPGM.webp" alt="Jean Paul Gaultier Le Male">
-          </div>
-          <div class="produto-titulo">Jean Paul Gaultier Le Male</div>
-          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€59,99</div>
-          <button class="saber-mais-btn">Saber mais</button>
-        </div>
-        <div class="produto-card" data-fragrancia="cítrico" data-temp="frio">
-          <div class="produto-img">
-            <img src="img/LVI.jpg" alt="Louis Vuitton Imagination">
-          </div>
-          <div class="produto-titulo">Louis Vuitton Imagination</div>
-          <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€139,99</div>
-          <button class="saber-mais-btn">Saber mais</button>
-        </div>
-      </div>
+          <div class="produtos-lista" id="produtos-lista">
+      <!-- Os produtos serão carregados aqui via JS -->
+    </div>
     </div>
     
   </main>
@@ -132,5 +106,43 @@
   </footer>
   <script src="JS/scriptProdutos.js"></script>
   <script src="JS/scriptEntrar.js"></script>
+    <script>
+    // Carregar produtos do JSON e exibir na lista
+    fetch('json/produtos.json')
+      .then(response => response.json())
+      .then(produtos => {
+        const lista = document.getElementById('produtos-lista');
+        if (!produtos.length) {
+          lista.innerHTML = `<div id="nenhum-produto" style="text-align:center; color:#b1b5bb; font-weight:600; margin: 24px 0;">
+            Nenhum produto encontrado.
+          </div>`;
+          return;
+        }
+        lista.innerHTML = produtos.map(produto => `
+          <div class="produto-card" data-id="${produto.id}">
+            <div class="produto-img">
+              <img src="${produto.imagem}" alt="${produto.nome}">
+            </div>
+            <div class="produto-titulo">${produto.nome}</div>
+            <div style="margin: 8px 0 0 0; font-weight:600; color:#ff7d1a;">€${produto.preco.toFixed(2)}</div>
+            <button class="saber-mais-btn">Saber mais</button>
+          </div>
+        `).join('');
+
+        // Redirecionar para a página do produto ao clicar em "Saber mais"
+        lista.querySelectorAll('.saber-mais-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const card = btn.closest('.produto-card');
+            const id = card.getAttribute('data-id');
+            window.location.href = `produto.html?id=${id}`;
+          });
+        });
+      })
+      .catch(() => {
+        document.getElementById('produtos-lista').innerHTML = `<div style="text-align:center; color:#b1b5bb; font-weight:600; margin: 24px 0;">
+          Erro ao carregar produtos.
+        </div>`;
+      });
+  </script>
 </body>
 </html>

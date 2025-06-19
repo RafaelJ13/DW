@@ -1,0 +1,38 @@
+[
+  {
+    "id": "p1",
+    "nome": "Stronger With You: Intensly",
+    "imagem": "img/SWY.avif",
+    "preco": 69.99,
+    "filtro": {
+      "fragrancia": "amadeirado",
+      "temp": "quente"
+    },
+    "descricao": "Uma fragrância intensa e envolvente, perfeita para noites especiais e para quem gosta de marcar presença.",
+    "stock": 10
+  },
+  {
+    "id": "p2",
+    "nome": "Jean Paul Gaultier Le Male",
+    "imagem": "img/JPGM.webp",
+    "preco": 59.99,
+    "filtro": {
+      "fragrancia": "oriental",
+      "temp": "moderado"
+    },
+    "descricao": "Clássico e sedutor, Le Male é um perfume oriental com notas frescas e quentes, ideal para todas as ocasiões.",
+    "stock": 8
+  },
+  {
+    "id": "p3",
+    "nome": "Louis Vuitton Imagination",
+    "imagem": "img/LVI.jpg",
+    "preco": 139.99,
+    "filtro": {
+      "fragrancia": "cítrico",
+      "temp": "frio"
+    },
+    "descricao": "Uma fragrância cítrica sofisticada, perfeita para dias frios e para quem busca exclusividade e frescor.",
+    "stock": 5
+  }
+]
