@@ -1,0 +1,97 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Somos apaixonados por qualidade, estilo e inovação. A nossa missão é oferecer os melhores produtos aos nossos clientes.">
+  <meta name="keywords" content="Essentia, perfumes, cosméticos, produtos de beleza, loja online">
+  <title>Essentia</title>
+  <link rel="icon" type="image/png" href="img/Logo.png">
+  <link rel="stylesheet" href="CSS/styleHomePage.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container header">
+          <h1 class="logo">Essentia</h1>
+          <nav>
+            <ul class="nav-links">
+              <li><a href="index.html" class="active">Início</a></li>
+              <li><a href="Produtos.html">Produtos</a></li>
+              <a href="Entrar.html" id="entrarLink">Entrar</a>
+            </ul>
+          </nav>
+          <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </header>
+      <nav class="mobile-nav" id="mobileNav">
+        <h1 class="logo">Essentia</h1>
+        <button class="close-mobile-nav" aria-label="Fechar menu">&times;</button>
+        <ul>
+          <li><a href="index.html" class="active">Início</a></li>
+          <li><a href="Produtos.html">Produtos</a></li>
+          <li><a href="Entrar.html">Entrar</a></li>
+        </ul>
+      </nav>
+
+  <div id="nav-auth-area"></div>
+
+  <section class="hero">
+    <div class="container hero-content fade-effect">
+      <div class="text">
+        <h2>Bem-vindo à Essentia</h2>
+        <p>Descubra os melhores produtos do mercado!</p>
+        <button onclick="scrollToProdutos()">Explorar Produtos</button>
+      </div>
+      <div class="image-fade">
+        <img src="img/background.jpeg" alt="Produto em destaque">
+      </div>
+    </div>
+  </section>
+
+  <section class="sobre-nos">
+    <div class="container">
+      <h2>Sobre nós</h2>
+      <p>Somos apaixonados por qualidade, estilo e inovação. A nossa missão é oferecer os melhores produtos aos nossos clientes.</p>
+    </div>
+  </section>
+
+  <section class="produtos" id="produtos">
+    <div class="container">
+      <h2>Mais Vendidos</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="img/SWY.avif" alt="Stronger With You: Intensly">
+          <h3>Stronger With You: Intensly</h3>
+          <p>€69,99</p>
+          <button>Ver mais</button>
+        </div>
+        <div class="card">
+          <img src="img/JPGM.webp" alt="Jean Paul Gaultier Le Male">
+          <h3>Jean Paul Gaultier Le Male</h3>
+          <p>€59,99</p>
+          <button>Ver mais</button>
+        </div>
+        <div class="card">
+          <img src="img/LVI.jpg" alt="Louis Vuitton Imagination">
+          <h3>Louis Vuitton Imagination</h3>
+          <p>€139,99</p>
+          <button>Ver mais</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer">
+      <p>&copy; 2025 Essentia. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="JS/scriptHomepage.js"></script>
+</body>
+</html>
