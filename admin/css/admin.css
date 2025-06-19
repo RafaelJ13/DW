@@ -1,0 +1,78 @@
+/* Fundo suave */
+body {
+  background: #f6f7fa;
+  font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Centralização do formulário */
+h1 {
+  text-align: center;
+  color: #0a2236;
+  margin-top: 60px;
+  margin-bottom: 24px;
+  font-size: 2.1rem;
+  letter-spacing: 1px;
+}
+
+#admin-login-form {
+  background: #fff;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 36px 32px 28px 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(10,34,54,0.10);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#admin-login-form input[type="email"],
+#admin-login-form input[type="password"] {
+  padding: 12px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  background: #f9f9fb;
+}
+
+#admin-login-form input:focus {
+  border-color: #ff7d1a;
+  background: #fff;
+}
+
+#admin-login-form button {
+  padding: 12px 0;
+  background: linear-gradient(90deg, #ff7d1a 60%, #ffb86c 100%);
+  color: #fff;
+  font-size: 1.08rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(10,34,54,0.08);
+}
+
+#admin-login-form button:hover {
+  background: linear-gradient(90deg, #e86c00 60%, #ff7d1a 100%);
+  box-shadow: 0 4px 16px rgba(10,34,54,0.13);
+}
+
+@media (max-width: 500px) {
+  #admin-login-form {
+    padding: 24px 8px 18px 8px;
+    max-width: 95vw;
+  }
+  h1 {
+    font-size: 1.3rem;
+    margin-top: 32px;
+  }
+}

@@ -52,9 +52,14 @@ function authenticateUser(email, password) {
   request.onsuccess = function () {
     const user = request.result;
     if (user && user.password === password) {
-      salvarSessao(email);
-      atualizarMenu();
-      window.location.href = "VerPerfil.html"; // Redireciona para o perfil
+      // Salva sessão
+      const txSession = db.transaction(["session"], "readwrite");
+      const sessionStore = txSession.objectStore("session");
+      sessionStore.put({ id: "currentSession", email: user.email });
+      window.location.href = "index.html";
+      salvarSessao(user.email); // Salva a sessão do usuário autenticado
+      atualizarMenu(); // Atualiza o menu para refletir o estado de login
+      console.log("Usuário autenticado com sucesso.");
     } else {
       alert("Email ou senha incorretos.");
     }
@@ -156,4 +161,34 @@ document.getElementById("login-form").addEventListener("submit", function (event
   } else {
     alert("Por favor, preencha todos os campos.");
   }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const request = indexedDB.open("EssentiaDB", 1);
+  request.onupgradeneeded = function (event) {
+    const db = event.target.result;
+    if (!db.objectStoreNames.contains("users")) {
+      db.createObjectStore("users", { keyPath: "email" });
+    }
+    if (!db.objectStoreNames.contains("session")) {
+      db.createObjectStore("session", { keyPath: "id" });
+    }
+  };
+  request.onsuccess = function (event) {
+    const db = event.target.result;
+    const tx = db.transaction(["users"], "readwrite");
+    const store = tx.objectStore("users");
+    // Cria admin apenas se não existir
+    const getAdmin = store.get("admin@admin.com");
+    getAdmin.onsuccess = function () {
+      if (!getAdmin.result) {
+        store.put({
+          email: "admin@admin.com",
+          password: "admin",
+          nome: "Administrador",
+          tipo: "admin",
+        });
+      }
+    };
+  };
 });

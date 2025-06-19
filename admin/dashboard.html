@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel do Administrador</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="admin-header">
+    <h1>Painel do Administrador</h1>
+    <button id="logout-btn">Sair</button>
+  </header>
+  <main class="admin-main">
+    <section class="admin-welcome">
+      <h2>Gestão de Stock de Perfumes</h2>
+      <p>Adicione ou remova stock dos perfumes cadastrados.</p>
+    </section>
+    <section class="admin-actions">
+      <div class="admin-card">
+        <h3>Perfumes em Stock</h3>
+        <div id="perfumes-lista">
+          <!-- Lista de perfumes será carregada aqui -->
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="admin-footer">
+    &copy; 2025 Essentia. Todos os direitos reservados.
+  </footer>
+  <script>
+    // Verificação de sessão admin
+    document.addEventListener("DOMContentLoaded", function () {
+      const request = indexedDB.open("EssentiaDB", 1);
+      request.onsuccess = function(event) {
+        const db = event.target.result;
+        const tx = db.transaction(["session"], "readonly");
+        const store = tx.objectStore("session");
+        const getSession = store.get("currentSession");
+        getSession.onsuccess = function() {
+          const session = getSession.result;
+          if (!(session && session.email === "admin@admin.com")) {
+            window.location.href = "admin.html";
+          } else {
+            carregarPerfumes();
+          }
+        };
+      };
+    });
+
+    // Logout
+    document.getElementById('logout-btn').onclick = function() {
+      const req = indexedDB.open("EssentiaDB", 1);
+      req.onsuccess = function (event) {
+        const db = event.target.result;
+        const tx = db.transaction(["session"], "readwrite");
+        const store = tx.objectStore("session");
+        store.delete("currentSession");
+        tx.oncomplete = function () {
+          window.location.href = "admin.html";
+        };
+      };
+    };
+
+    // Carregar perfumes e mostrar stock
+    function carregarPerfumes() {
+      const lista = document.getElementById('perfumes-lista');
+      lista.innerHTML = "<p>A carregar perfumes...</p>";
+      const req = indexedDB.open("EssentiaDB", 1);
+      req.onsuccess = function(event) {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains("produtos")) {
+          lista.innerHTML = "<p>Nenhum perfume cadastrado.</p>";
+          return;
+        }
+        const tx = db.transaction(["produtos"], "readonly");
+        const store = tx.objectStore("produtos");
+        const perfumes = [];
+        store.openCursor().onsuccess = function(e) {
+          const cursor = e.target.result;
+          if (cursor) {
+            perfumes.push(cursor.value);
+            cursor.continue();
+          } else {
+            if (perfumes.length === 0) {
+              lista.innerHTML = "<p>Nenhum perfume cadastrado.</p>";
+              return;
+            }
+            let html = "<table style='width:100%;border-collapse:collapse'><thead><tr><th style='text-align:left'>Nome</th><th style='text-align:center'>Stock</th><th style='text-align:center'>Ações</th></tr></thead><tbody>";
+            perfumes.forEach(p => {
+              html += `
+                <tr>
+                  <td>${p.nome || "Sem nome"}</td>
+                  <td style="text-align:center" id="stock-${p.id}">${p.stock || 0}</td>
+                  <td style="text-align:center">
+                    <button onclick="alterarStock('${p.id}', 1)">+1</button>
+                    <button onclick="alterarStock('${p.id}', -1)">-1</button>
+                  </td>
+                </tr>
+              `;
+            });
+            html += "</tbody></table>";
+            lista.innerHTML = html;
+          }
+        };
+      };
+    }
+
+    // Função global para alterar stock
+    window.alterarStock = function(id, delta) {
+      const req = indexedDB.open("EssentiaDB", 1);
+      req.onsuccess = function(event) {
+        const db = event.target.result;
+        if (!db.objectStoreNames.contains("produtos")) return;
+        const tx = db.transaction(["produtos"], "readwrite");
+        const store = tx.objectStore("produtos");
+        const getReq = store.get(id);
+        getReq.onsuccess = function() {
+          const produto = getReq.result;
+          if (produto) {
+            produto.stock = (produto.stock || 0) + delta;
+            if (produto.stock < 0) produto.stock = 0;
+            store.put(produto);
+            tx.oncomplete = function () {
+              document.getElementById('stock-' + id).textContent = produto.stock;
+            };
+          }
+        };
+      };
+    };
+  </script>
+  <style>
+    body {
+      background: #f6f7fa;
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .admin-header {
+      background: #0a2236;
+      color: #fff;
+      padding: 24px 0 16px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    .admin-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    #logout-btn {
+      background: #ff7d1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #logout-btn:hover {
+      background: #e86c00;
+    }
+    .admin-main {
+      flex: 1;
+      max-width: 1000px;
+      margin: 36px auto 0 auto;
+      padding: 0 20px;
+    }
+    .admin-welcome {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+    .admin-welcome h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: #0a2236;
+    }
+    .admin-actions {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .admin-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(10,34,54,0.10);
+      padding: 32px 28px 28px 28px;
+      min-width: 260px;
+      max-width: 320px;
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .admin-card h3 {
+      margin-top: 0;
+      color: #ff7d1a;
+      font-size: 1.2rem;
+    }
+    .admin-card p {
+      color: #444;
+      font-size: 1rem;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .admin-card button {
+      background: linear-gradient(90deg, #ff7d1a 60%, #ffb86c 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .admin-card button:hover {
+      background: linear-gradient(90deg, #e86c00 60%, #ff7d1a 100%);
+    }
+    .admin-footer {
+      text-align: center;
+      color: #0a2236;
+      font-size: 0.97rem;
+      padding: 18px 0 12px 0;
+      background: none;
+      margin-top: 40px;
+    }
+    @media (max-width: 900px) {
+      .admin-actions {
+        flex-direction: column;
+        gap: 18px;
+      }
+      .admin-header {
+        flex-direction: column;
+        gap: 12px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  </style>
+</body>
+</html>
