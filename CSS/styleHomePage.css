@@ -317,7 +317,7 @@ footer {
   height: 4px;
   width: 100%;
   background: #fff;
-  border-radius: 2px;
+
   transition: 0.3s;
 }
 
@@ -429,24 +429,106 @@ footer {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fff;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  right: 0;
+  background: #fff;
+  min-width: 170px;
+  box-shadow: 0 8px 24px rgba(10,34,54,0.10);
+  border-radius:  8px;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
 }
 
-.dropdown-content a {
-  color: #222;
-  padding: 12px 16px;
-  text-decoration: none;
+.nav-profile {
+
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: color 0.3s ease;
+}
+
+.profile-btn:hover {
+  color: #ff7d1a;
+
+}
+
+.nav-profile.open .dropdown-content {
   display: block;
 }
 
+.dropdown-content a {
+  display: block;
+  padding: 12px 20px;
+  color: #0a2236;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
 .dropdown-content a:hover {
-  background-color: #f1f1f1;
+  background: #f5f6fa;
+  color: #ff7d1a;
+}
+
+/* Dropdown links do perfil */
+.nav-links .dropdown-content a {
+  position: relative;
+  display: block;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 14px 28px;
+  color: #0a2236;
+  text-decoration: none;
+  border-radius: 0;
+  background: none;
+  transition: background 0.2s, color 0.2s;
+  overflow: hidden;
+}
+
+/* Linha laranja começa no início da palavra */
+.nav-links .dropdown-content a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 2px;
+  background: #ff7d1a;
+  border-radius: 8px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s;
+}
+
+.nav-links .dropdown-content a:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-links .dropdown-content a:hover {
+  background: transparent;
+  color: #ff7d1a;
 }
 
 /* Show the dropdown on hover */
 .dropdown:hover .dropdown-content {
+  display: block;
+}
+.nav-links li {
+  position: relative;
+}
+
+.nav-links li.open .dropdown-content {
   display: block;
 }

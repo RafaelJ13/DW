@@ -105,7 +105,7 @@ header {
   background: var(--laranja);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+
 }
 
 .nav-profile a:hover::after,
@@ -123,7 +123,6 @@ header {
   color: var(--laranja);
   font-size: 1.08rem;
   font-weight: 500;
-  cursor: pointer;
   transition: color 0.2s;
 }
 
@@ -146,22 +145,30 @@ header {
   display: none;
   position: absolute;
   right: 0;
-  background-color: #fff;
-  min-width: 160px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  z-index: 1;
-  border-radius: 6px;
-  overflow: hidden;
+  background: #fff;
+  min-width: 170px;
+  box-shadow: 0 8px 24px rgba(10,34,54,0.10);
+  border-radius:  8px;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
+  
 }
 
 .dropdown-content a {
-  color: #333;
-  padding: 12px 24px; /* Aumenta a margem interna das opções */
-  text-decoration: none !important; /* Garante que não tenha underline */
+  position: relative;
   display: block;
-  font-size: 1em;
-  box-sizing: border-box;
-  border: none;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 14px 28px;
+  color: #0a2236;
+  text-decoration: none;
+  border-radius: 0;
+  background: none;
+  transition: background 0.2s, color 0.2s;
+  overflow: hidden;
 }
 
 /* Garante que todas as opções, incluindo "Sair", não tenham underline */
@@ -173,12 +180,37 @@ header {
 
 .dropdown-content a:hover,
 .dropdown-content a.active {
-  background-color: #f1f1f1;
+  background-color: transparent;
 }
 
-.nav-profile.dropdown:hover .dropdown-content,
-.nav-profile.dropdown:focus-within .dropdown-content {
+.nav-profile:hover .dropdown-content {
   display: block;
+}
+.nav-links .dropdown-content a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 2px;
+  background: #ff7d1a;
+  border-radius: 0;
+  transform: scaleX(2);
+  transform-origin: right;
+  transition: transform 0.2s;
+}
+
+.nav-links .dropdown-content a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Arredondamento só quando hover na 1ª ou última */
+.nav-links .dropdown-content a:first-child:hover::after {
+  border-bottom-left-radius: 8px;
+}
+.nav-links .dropdown-content a:last-child:hover::after {
+  border-bottom-right-radius: 8px;
 }
 
 main {
@@ -247,12 +279,13 @@ input:focus {
   background: #e66a12;
 }
 
-.perfil-foto {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  min-width: 180px;
+#foto-perfil {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid #ff7d1a;
+  background: #fff;
+  display: block;
 }
 
 .foto-preview {
@@ -325,6 +358,86 @@ input:focus {
   width: 100%;
 }
 
+/* Exemplo de CSS para upload de imagem bonito */
+
+/* Container centralizado e espaçamento elegante */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+/* Preview da imagem em círculo com sombra e efeito de hover */
+.upload-preview {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #f5f6fa;
+  box-shadow: 0 4px 16px rgba(10,34,54,0.10);
+  object-fit: cover;
+  object-position: center;
+  border: 3px solid #ff7d1a;
+  transition: box-shadow 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.upload-preview:hover {
+  box-shadow: 0 8px 32px rgba(10,34,54,0.18);
+  border-color: #e86c00;
+}
+
+/* Esconde o input padrão */
+.upload-input {
+  display: none;
+}
+
+/* Botão customizado para upload */
+.upload-label {
+  display: inline-block;
+  padding: 10px 32px;
+  background: linear-gradient(90deg, #ff7d1a 60%, #ffb86c 100%);
+  color: #fff;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(10,34,54,0.08);
+  margin-top: 8px;
+  border: none;
+  outline: none;
+}
+.upload-label:hover, .upload-label:focus {
+  background: linear-gradient(90deg, #e86c00 60%, #ff7d1a 100%);
+  box-shadow: 0 4px 16px rgba(10,34,54,0.13);
+}
+
+/* Texto de instrução */
+.upload-hint {
+  color: #888;
+  font-size: 0.97rem;
+  margin-top: 2px;
+  text-align: center;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .upload-preview {
+    width: 90px;
+    height: 90px;
+  }
+  .upload-label {
+    padding: 8px 18px;
+    font-size: 0.95rem;
+  }
+}
+
 footer {
   background: var(--cor-primaria);
   color: var(--cor-branco);
@@ -342,4 +455,94 @@ footer {
     align-items: flex-start;
     min-width: 0;
   }
+}
+
+/* Dropdown exclusivo do perfil no Editar Perfil */
+.perfil-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.perfil-dropdown-btn {
+  color: #0a2236;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.perfil-dropdown-btn:hover,
+.perfil-dropdown-btn.active {
+  background: #f5f6fa;
+  color: #ff7d1a;
+}
+
+.perfil-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: #fff;
+  min-width: 170px;
+  box-shadow: 0 8px 24px rgba(10,34,54,0.10);
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  padding: 8px 0;
+}
+
+.perfil-dropdown.open .perfil-dropdown-content {
+  display: block;
+}
+
+.perfil-dropdown-content a {
+  position: relative;
+  display: block;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 14px 28px;
+  color: #0a2236;
+  text-decoration: none;
+  background: none;
+  transition: background 0.2s, color 0.2s;
+  overflow: hidden;
+}
+
+/* Linha laranja ao hover, da direita para a esquerda */
+.perfil-dropdown-content a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 2px;
+  background: #ff7d1a;
+  border-radius: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.2s;
+}
+
+.perfil-dropdown-content a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Arredondamento só quando hover na 1ª ou última */
+.perfil-dropdown-content a:first-child:hover::after {
+  border-bottom-left-radius: 8px;
+}
+.perfil-dropdown-content a:last-child:hover::after {
+  border-bottom-right-radius: 8px;
+}
+
+.perfil-dropdown-content a:hover {
+  background: #f5f6fa;
+  color: #ff7d1a;
 }

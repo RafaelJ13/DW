@@ -6,6 +6,8 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         "**/.vscode": true,
+        "DW.code-workspace": true,
+        "**/DW.code-workspace": true,
         "/c:/Users/Utilizador/Desktop/DW/DW.code-workspace": true
     },
     "hide-files.files": []

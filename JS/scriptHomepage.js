@@ -37,9 +37,10 @@ if (closeBtn) {
     nav.classList.remove('open');
   };
 }
-
 document.addEventListener("DOMContentLoaded", function () {
-  const navAuthArea = document.getElementById('nav-auth-area');
+  const entrarLink = document.getElementById("EntrarLink");
+  if (!entrarLink) return;
+
   const request = indexedDB.open("EssentiaDB", 1);
   request.onsuccess = function (event) {
     const db = event.target.result;
@@ -49,21 +50,11 @@ document.addEventListener("DOMContentLoaded", function () {
     getSession.onsuccess = function () {
       const session = getSession.result;
       if (session && session.email) {
-        // Mostra dropdown (sem JS extra)
-        navAuthArea.innerHTML = `
-          <div class="nav-profile dropdown">
-            <button class="profile-btn">Perfil</button>
-            <div class="dropdown-content">
-              <a href="EditarPerfil.html">Editar Perfil</a>
-              <a href="VerPerfil.html">Ver Perfil</a>
-              <a href="Favoritos.html">Favoritos</a>
-              <a href="#" class="logout-link">Sair</a>
-            </div>
-          </div>
-        `;
+        entrarLink.textContent = "Perfil";
+        entrarLink.href = "VerPerfil.html";
       } else {
-        // Mostra só o botão Entrar
-        navAuthArea.innerHTML = `<a href="Entrar.html" class="profile-btn">Entrar</a>`;
+        entrarLink.textContent = "Entrar";
+        entrarLink.href = "Entrar.html";
       }
     };
   };
