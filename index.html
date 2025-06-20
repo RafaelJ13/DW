@@ -11,66 +11,6 @@
   <title>Essentia</title>
   <link rel="icon" type="image/png" href="img/Logo.png">
   <link rel="stylesheet" href="CSS/styleHomePage.css">
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const entrarLink = document.getElementById("EntrarLink");
-      if (!entrarLink) return;
-
-      const request = indexedDB.open("EssentiaDB", 1);
-      request.onsuccess = function (event) {
-        const db = event.target.result;
-        const tx = db.transaction(["session"], "readonly");
-        const store = tx.objectStore("session");
-        const getSession = store.get("currentSession");
-        getSession.onsuccess = function () {
-          const session = getSession.result;
-          if (session && session.email) {
-            entrarLink.textContent = "Perfil";
-            entrarLink.href = "VerPerfil.html";
-          } else {
-            entrarLink.textContent = "Entrar";
-            entrarLink.href = "Entrar.html";
-          }
-        };
-      };
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-  const navAuthArea = document.getElementById('nav-auth-area');
-  // Simulação de sessão (troque pelo seu IndexedDB)
-  const session = { email: "teste@teste.com" }; // Remova isso e use seu método real
-
-  if (session && session.email) {
-    navAuthArea.innerHTML = `
-      <a href="#" class="perfil-link" id="perfilDropdownBtn">Perfil</a>
-      <div class="dropdown-content">
-        <a href="VerPerfil.html">Ver Perfil</a>
-        <a href="EditarPerfil.html">Editar Perfil</a>
-        <a href="Favoritos.html">Favoritos</a>
-        <a href="#" class="logout-link">Sair</a>
-      </div>
-    `;
-
-    const perfilBtn = navAuthArea.querySelector('#perfilDropdownBtn');
-    perfilBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      navAuthArea.classList.toggle('open');
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!navAuthArea.contains(e.target)) navAuthArea.classList.remove('open');
-    });
-
-    navAuthArea.querySelector('.logout-link').addEventListener('click', function (e) {
-      e.preventDefault();
-      // Aqui coloque seu código de logout
-      alert("Logout!");
-    });
-  } else {
-    navAuthArea.innerHTML = `<a href="Entrar.html" class="perfil-link">Entrar</a>`;
-  }
-});
-  </script>
 </head>
 <body>
     <header id="main-header">
@@ -80,7 +20,7 @@
             <ul class="nav-links">
               <li><a href="index.html" class="active">Início</a></li>
               <li><a href="Produtos.html">Produtos</a></li>
-              <li id="nav-auth-area"></li>
+              <li><a href="Entrar.html">Entrar</a></li>
             </ul>
           </nav>
           <div class="mobile-menu-btn" id="mobileMenuBtn">
@@ -97,7 +37,7 @@
         <ul>
           <li><a href="index.html" class="active">Início</a></li>
           <li><a href="Produtos.html">Produtos</a></li>
-          <li><a href="Entrar.html">Entrar</a></li>
+            <li><a href="Entrar.html">Entrar</a></li>
         </ul>
       </nav>
 

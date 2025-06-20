@@ -99,10 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
           const store = tx.objectStore("session");
           store.delete("currentSession");
           tx.oncomplete = function () {
-            window.location.href = "login.html"; // ou admin.html, conforme seu sistema
+            window.location.href = "Entrar.html"; // ou admin.html, conforme seu sistema
           };
         } else {
-          window.location.href = "login.html";
+          window.location.href = "Entrar.html";
         }
       };
     });

@@ -56,7 +56,7 @@ function authenticateUser(email, password) {
       const txSession = db.transaction(["session"], "readwrite");
       const sessionStore = txSession.objectStore("session");
       sessionStore.put({ id: "currentSession", email: user.email });
-      window.location.href = "index.html";
+      window.location.href = "Produtos.html";
       salvarSessao(user.email); // Salva a sessão do usuário autenticado
       atualizarMenu(); // Atualiza o menu para refletir o estado de login
       console.log("Usuário autenticado com sucesso.");
