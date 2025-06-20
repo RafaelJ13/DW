@@ -86,20 +86,25 @@ document.getElementById("mudar-foto").addEventListener("click", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Seleciona todos os links de logout
-  document.querySelectorAll('.logout-link, #logout-link').forEach(function(link) {
-    link.addEventListener('click', function(e) {
+  const logoutBtn = document.getElementById("logout-link");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function (e) {
       e.preventDefault();
-      const req = indexedDB.open("EssentiaDB", 1);
+      // Remove sessão do IndexedDB
+      const req = indexedDB.open("EssentiaDB", 3);
       req.onsuccess = function (event) {
         const db = event.target.result;
-        const tx = db.transaction(["session"], "readwrite");
-        const store = tx.objectStore("session");
-        store.delete("currentSession");
-        tx.oncomplete = function () {
-          window.location.href = "Entrar.html";
-        };
+        if (db.objectStoreNames.contains("session")) {
+          const tx = db.transaction(["session"], "readwrite");
+          const store = tx.objectStore("session");
+          store.delete("currentSession");
+          tx.oncomplete = function () {
+            window.location.href = "login.html"; // ou admin.html, conforme seu sistema
+          };
+        } else {
+          window.location.href = "login.html";
+        }
       };
     });
-  });
+  }
 });

@@ -27,124 +27,86 @@
     padding: 0;
     box-shadow: 0 2px 16px rgba(10,34,54,0.08);
   }
-.icon-carrinho {
+  main {
+    flex: 1 0 auto;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 48px 0 100px 0;
+    box-sizing: border-box;
+  }
+      .produtos-titulo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .produtos-titulo::before {
+      content: "❤";
+      color: #ff7d1a;
+      font-size: 1.3em;
+    }
+    
+.nav-bar {
   display: flex;
   align-items: center;
-  gap: 48px;
-  height: 60px;
-  background: transparent;
-  padding: 0 32px;
+  justify-content: space-between;
+  padding: 0 72px; /* Alterado de 48px para 72px */
+  height: 68px;
 }
-  /* Menu dropdown perfil */
-    .nav-profile.dropdown {
-    position: relative;
-    display: inline-block;
-    }
 
-    .profile-btn {
-    background: none;
-    border: none;
-    color: var(--cor-branco);
-    font-size: 1em;
-    cursor: pointer;
-    padding: 8px 16px;
-    }
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
-    .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    z-index: 1;
-    border-radius: 6px;
-    overflow: hidden;
-    }
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  margin-right: 20px;
+}
 
-    .dropdown-content a {
-    color: #333;
-    padding: 12px 24px; /* Aumenta a margem interna das opções */
-    text-decoration: none !important; /* Garante que não tenha underline */
-    display: block;
-    font-size: 1em;
-    box-sizing: border-box;
-    border: none;
-    }
+.nav-links {
+  display: flex;
+  gap: 36px;
+}
 
-    /* Garante que todas as opções, incluindo "Sair", não tenham underline */
-    .dropdown-content a:visited,
-    .dropdown-content a:active,
-    .dropdown-content a:hover {
-    text-decoration: none !important;
-    }
-
-    .dropdown-content a:hover,
-    .dropdown-content a.active {
-    background-color: #f1f1f1;
-    }
-
-    .nav-profile.dropdown:hover .dropdown-content,
-    .nav-profile.dropdown:focus-within .dropdown-content {
-    display: block;
-    }
-
-
-  .nav-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 48px;
-    height: 68px;
-  }
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
-  .logo {
-    font-size: 2rem;
-    font-weight: bold;
-    letter-spacing: -1px;
-    margin-right: 20px;
-  }
-  .nav-links {
-    display: flex;
-    gap: 36px;
-  }
-  .nav-links a {
-    position: relative;
-    color: var(--branco);
-    text-decoration: none;
-    font-size: 1.08rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    transition: color 0.2s;
-    padding: 4px 0;
-    /* remove underline padrão */
-  }
-  .nav-links a::after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -6px; /* distância do texto */
-    height: 3px;
-    border-radius: 2px;
-    background: var(--laranja);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s cubic-bezier(.77,0,.18,1);
-  }
-  .nav-links a:hover::after,
-  .nav-links a.active::after {
-    
-    transform: scaleX(1);
-  }
-  .nav-profile a {
+.nav-links a {
   position: relative;
-  color: var(--branco);
+  color: var(--cor-branco);
+  text-decoration: none;
+  font-size: 1.08rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+  padding: 4px 0;
+}
+
+.nav-links a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--laranja);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
+.nav-profile a {
+  position: relative;
+  color: var(--cor-branco);
   text-decoration: none;
   font-size: 1.08rem;
   font-weight: 500;
@@ -159,13 +121,13 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -6px; /* distância do texto */
+  bottom: -6px;
   height: 3px;
   border-radius: 2px;
   background: var(--laranja);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.35s cubic-bezier(.77,0,.18,1);
+
 }
 
 .nav-profile a:hover::after,
@@ -177,22 +139,102 @@
 .nav-profile a:hover {
   color: var(--laranja);
 }
-   .nav-links a:hover, 
-  .nav-profile a:hover{
-    color: var(--laranja);
-    font-size: 1.08rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  main {
-    flex: 1 0 auto;
-    width: 100%;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 48px 0 100px 0;
-    box-sizing: border-box;
-  }
+
+.nav-links a:hover, 
+.nav-profile a:hover {
+  color: var(--laranja);
+  font-size: 1.08rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+/* Menu dropdown perfil */
+.nav-profile.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn {
+  background: none;
+  border: none;
+  color: var(--cor-branco);
+  font-size: 1em;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #fff;
+  min-width: 170px;
+  box-shadow: 0 8px 24px rgba(10,34,54,0.10);
+  border-radius:  8px;
+  z-index: 10;
+  padding: 0;
+  margin: 0;
+  
+}
+
+.dropdown-content a {
+  position: relative;
+  display: block;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 14px 28px;
+  color: #0a2236;
+  text-decoration: none;
+  border-radius: 0;
+  background: none;
+  transition: background 0.2s, color 0.2s;
+  overflow: hidden;
+}
+
+/* Garante que todas as opções, incluindo "Sair", não tenham underline */
+.dropdown-content a:visited,
+.dropdown-content a:active,
+.dropdown-content a:hover {
+  text-decoration: none !important;
+}
+
+.dropdown-content a:hover,
+.dropdown-content a.active {
+  background-color: transparent;
+}
+
+.nav-profile:hover .dropdown-content {
+  display: block;
+}
+.nav-links .dropdown-content a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 2px;
+  background: #ff7d1a;
+  border-radius: 0;
+  transform: scaleX(2);
+  transform-origin: right;
+  transition: transform 0.2s;
+}
+
+.nav-links .dropdown-content a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Arredondamento só quando hover na 1ª ou última */
+.nav-links .dropdown-content a:first-child:hover::after {
+  border-bottom-left-radius: 8px;
+}
+.nav-links .dropdown-content a:last-child:hover::after {
+  border-bottom-right-radius: 8px;
+}
+
   .busca-area {
     display: flex;
     align-items: flex-end;

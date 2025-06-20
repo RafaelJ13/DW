@@ -149,5 +149,43 @@
         </div>`;
       });
   </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('profile-btn');
+  const dropdown = btn ? btn.parentElement : null;
+  if (btn && dropdown) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      dropdown.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e) {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  }
+  // Logout funcional
+  const logoutBtn = document.getElementById('logout-link');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const req = indexedDB.open("EssentiaDB", 3);
+      req.onsuccess = function(event) {
+        const db = event.target.result;
+        if (db.objectStoreNames.contains("session")) {
+          const tx = db.transaction(["session"], "readwrite");
+          const store = tx.objectStore("session");
+          store.delete("currentSession");
+          tx.oncomplete = function () {
+            window.location.href = "Entrar.html";
+          };
+        } else {
+          window.location.href = "Entrar.html";
+        }
+      };
+    });
+  }
+});
+</script>
 </body>
 </html>

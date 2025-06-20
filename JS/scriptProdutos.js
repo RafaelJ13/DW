@@ -161,3 +161,27 @@ function filtrarProdutos() {
       });
     });
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoutBtn = document.getElementById('logout-link');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Remove sessão do IndexedDB
+        const req = indexedDB.open("EssentiaDB", 3);
+        req.onsuccess = function(event) {
+          const db = event.target.result;
+          if (db.objectStoreNames.contains("session")) {
+            const tx = db.transaction(["session"], "readwrite");
+            const store = tx.objectStore("session");
+            store.delete("currentSession");
+            tx.oncomplete = function () {
+              window.location.href = "login.html"; // ou admin.html, conforme seu sistema
+            };
+          } else {
+            window.location.href = "login.html";
+          }
+        };
+      });
+    }
+  });

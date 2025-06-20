@@ -7,19 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="CSS/styleFavoritos.css">
   <link rel="stylesheet" href="CSS/styleProdutos.css">
-  <style>
-    .produtos-titulo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
 
-    .produtos-titulo::before {
-      content: "❤";
-      color: #ff7d1a;
-      font-size: 1.3em;
-    }
-  </style>
 </head>
 <body>
 <header id="main-header">
@@ -38,7 +26,7 @@
             <path d="M7 22a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM7.2 17h9.45a2 2 0 0 0 1.97-1.68l1.38-7.59A1 1 0 0 0 19 6H6.21l-.94-4.36A1 1 0 0 0 4.3 1H2a1 1 0 1 0 0 2h1.3l3.6 16.36A2 2 0 0 0 8.8 21h8.4a1 1 0 1 0 0-2H8.8a1 1 0 0 1-.98-.8L7.2 17z" fill="#ff7d1a"/>
           </svg>
         </a>
-          <button class="profile-btn">Perfil</button>
+          <button class="profile-btn" id="perfilDropdownMenu" >Perfil</button>
           <div class="dropdown-content">
             <a href="EditarPerfil.html">Editar Perfil</a>
             <a href="VerPerfil.html">Ver Perfil</a>
@@ -102,6 +90,22 @@
     if(document.querySelectorAll('.produto-card').length === 0) {
       document.getElementById('sem-favoritos').hidden = false;
     }
+    document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('perfilDropdownBtn');
+  const dropdown = btn.parentElement;
+
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    dropdown.classList.toggle('open');
+  });
+
+  // Fecha o menu ao clicar fora
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+    }
+  });
+});
   </script>
 </body>
 </html>
